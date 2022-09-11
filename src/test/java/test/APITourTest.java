@@ -58,7 +58,7 @@ public class APITourTest {
     }
 
     @Test
-    @DisplayName("90) HappyPath PayCard Status Approved API Test Response 200")
+    @DisplayName("90) HappyPath CreditCard Status Declined API Test Response 200")
     void shouldResponseTwoHundredByPayCreditCardDeclined() {
         Assertions.assertAll(
                 APIDBHelper::buyDeclinedCreditCardAPI,

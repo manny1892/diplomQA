@@ -1,4 +1,5 @@
 package data;
+
 import com.google.gson.Gson;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -25,8 +26,7 @@ public class APIDBHelper {
         val runner = new QueryRunner();
 
         try (
-                val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                val conn = DriverManager.getConnection(System.getProperty("dbUrl"), "app", "pass"
                 );
         ) {
             runner.update(conn, deleteOrder);
@@ -35,6 +35,7 @@ public class APIDBHelper {
 
         }
     }
+
     @SneakyThrows
     public static String getCreditStatusDB() {
         val status = "SELECT status FROM credit_request_entity;";
@@ -42,8 +43,7 @@ public class APIDBHelper {
         String creditStatus;
 
         try (
-                val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                val conn = DriverManager.getConnection(System.getProperty("dbUrl"), "app", "pass"
                 );
         ) {
             creditStatus = runner.query(conn, status, new ScalarHandler<>());
@@ -59,8 +59,7 @@ public class APIDBHelper {
         String payStatus;
 
         try (
-                val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                val conn = DriverManager.getConnection(System.getProperty("dbUrl"), "app", "pass"
                 );
         ) {
             payStatus = runner.query(conn, sql, new ScalarHandler<>());
@@ -76,8 +75,7 @@ public class APIDBHelper {
         long payCount;
 
         try (
-                val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                val conn = DriverManager.getConnection(System.getProperty("dbUrl"), "app", "pass"
                 );
         ) {
             payCount = runner.query(conn, sql, new ScalarHandler<>());
@@ -92,14 +90,14 @@ public class APIDBHelper {
         long creditCount;
 
         try (
-                val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                val conn = DriverManager.getConnection(System.getProperty("dbUrl"), "app", "pass"
                 );
         ) {
             creditCount = runner.query(conn, sql, new ScalarHandler<>());
         }
         return creditCount;
     }
+
     @SneakyThrows
     public static long getOrderCount() {
         val sql = "SELECT COUNT(id) as count FROM order_entity;";
@@ -107,8 +105,7 @@ public class APIDBHelper {
         long orderCount;
 
         try (
-                val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                val conn = DriverManager.getConnection(System.getProperty("dbUrl"), "app", "pass"
                 );
         ) {
             orderCount = runner.query(conn, sql, new ScalarHandler<>());
